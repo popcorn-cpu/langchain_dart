@@ -6,7 +6,7 @@ WebSocketChannel connectWebSocket(Uri uri, String? apiKey) {
   return IOWebSocketChannel.connect(
     uri,
     headers: {
-      if (apiKey != null) 'Authorization': 'Bearer $apiKey',
+      if (apiKey != null) 'api-key': apiKey,
       'OpenAI-Beta': 'realtime=v1',
     },
   );

@@ -67,7 +67,19 @@ class RealtimeAPI extends RealtimeEventHandler {
     _configLogger();
 
     _model = model;
-    final uri = Uri.parse('$url?model=$_model');
+    final baseUri = Uri.parse(url);
+    final queryParams = Map<String, dynamic>.from(baseUri.queryParameters);
+    queryParams['model'] = _model;
+
+    final uri = Uri(
+      scheme: baseUri.scheme,
+      userInfo: baseUri.userInfo,
+      host: baseUri.host,
+      port: baseUri.port,
+      path: baseUri.path,
+      queryParameters: queryParams,
+      fragment: baseUri.fragment,
+    );
 
     try {
       _ws = connectWebSocket(uri, apiKey);
